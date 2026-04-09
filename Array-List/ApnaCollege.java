@@ -94,6 +94,30 @@ public class ApnaCollege {
     }
     return false;
   }
+  public static boolean pair2sum(ArrayList<Integer> list, int target){
+    int n=list.size();
+    int bp=-1;
+    for(int i=0;i<list.size()-1;i++){
+      if(list.get(i)>list.get(i+1)){
+        bp=i;
+        break;
+      }
+    }
+    int lp=bp+1;
+    int rp=bp;
+
+    while (lp!=rp) { 
+        if(list.get(lp)+list.get(rp)==target){
+          return true;
+        }
+        else if(list.get(lp)+list.get(rp)<target){
+          lp=(lp+1)%n;  // ****** This is also rotation of array 
+        }else{
+          rp=(rp+n-1)%n;  //  ****  This is the rotation of array this is very important 
+        }
+    }
+    return false;
+  }
   public static void main(String[] args) {
     ArrayList<Integer> list=new ArrayList<>();
     list.add(4);
@@ -115,7 +139,8 @@ public class ApnaCollege {
     // mostwaterWithContainer(list);
     // mostWaterTwoPointer(list);
     // System.out.println(prairSum(list, 10));
-    System.out.println(prairSumTwoPointer(list, 100));
+    // System.out.println(prairSumTwoPointer(list, 100));
+    System.out.println(prairSum(list, 16));
     // System.out.println(list);
   }
 }
