@@ -15,10 +15,16 @@ public class SumSubArrByValue {
         int num=arr[i];
         sum+=num;
         
-        if(map.containsKey(k-sum)){
-          count+=map.get(k-sum);
+        if(map.containsKey(sum-k)){
+          count+=map.get(sum-k);
         }
-        map.put(sum, map.getOrDefault(sum, 0)+1);
+        // map.put(sum, map.getOrDefault(sum, 0)+1);
+        if(map.containsKey(sum)){
+          map.put(sum, map.get(sum)+1);
+        }
+        else{
+          map.put(sum, 1);
+        }
       }
       System.out.println(count);
 
