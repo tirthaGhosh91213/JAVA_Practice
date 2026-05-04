@@ -80,6 +80,36 @@ public void printLL(){
   }
   System.out.println();
 }
+
+public int LinerSearch(int key){
+int i=0;
+Node temp=head;
+while(temp!=null){
+  if(temp.data==key){
+    return i;
+  }
+temp=temp.next;
+i++;
+}
+return -1;
+}
+public int helper(Node head,int key){
+  if(head==null){
+    return -1;
+  }
+  if(head.data==key){
+    return 0;
+  }
+  int idx=helper(head.next, key);
+  if(idx==-1){
+    return -1;
+  }
+  return idx+1;
+}
+public int recSearch(int key){
+  return helper(head, key);
+}
+
   public static void main(String[] args) {
     ApnaCollege ll=new ApnaCollege();
     ll.addFirst(10);
@@ -94,6 +124,9 @@ public void printLL(){
     ll.printLL();
     ll.removeLast();
     ll.printLL();
+
+    System.out.println("The index is :-  "+ll.LinerSearch(3));
+    System.out.println("The index is :-  "+ll.recSearch(10));
     // System.out.println(size);
   }
 }
