@@ -143,6 +143,15 @@ public void removeFromEnd(int n){
   return;
 
 }
+public Node findMid(Node head){
+  Node slow=head;
+  Node first=head;
+  while(first!=null && first.next!=null){
+    slow=slow.next;
+    first=first.next.next;
+  }
+  return slow;
+}
   public static void main(String[] args) {
     ApnaCollege ll=new ApnaCollege();
     ll.addFirst(10);
