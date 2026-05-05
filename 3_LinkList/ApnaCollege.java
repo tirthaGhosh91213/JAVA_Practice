@@ -109,7 +109,40 @@ public int helper(Node head,int key){
 public int recSearch(int key){
   return helper(head, key);
 }
+public void reverse(){
+  Node prev=null;
+  Node curr=tail=head;
+  Node  Next;
+  while(curr!=null){
+  Next=curr.next;
+    curr.next=prev;
+    prev=curr;
+    curr=Next;
+  }
+  head=prev;
+}
+public void removeFromEnd(int n){
+  int sz=0;
+  Node temp=head;
+  while(temp!=null){
+    temp=temp.next;
+    sz++;
+  }
+  if(n==sz){
+    head=head.next;
+    return;
+  }
+  int i=1;
+  Node prev=head;
+  while(i<sz-n){
+    prev=prev.next;
+    i++;
 
+  }
+  prev.next=prev.next.next;
+  return;
+
+}
   public static void main(String[] args) {
     ApnaCollege ll=new ApnaCollege();
     ll.addFirst(10);
@@ -127,6 +160,10 @@ public int recSearch(int key){
 
     System.out.println("The index is :-  "+ll.LinerSearch(3));
     System.out.println("The index is :-  "+ll.recSearch(10));
+    ll.reverse();
+    ll.printLL();
+    ll.removeFromEnd(2);
+    ll.printLL();
     // System.out.println(size);
   }
 }
