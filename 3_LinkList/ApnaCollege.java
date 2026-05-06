@@ -1,4 +1,6 @@
 
+
+
 public class ApnaCollege {
   public static class Node{
     int data;
@@ -152,27 +154,59 @@ public Node findMid(Node head){
   }
   return slow;
 }
+public boolean palindrome(){
+  if(head==null || head.next==null){
+    return true;
+  }
+  Node mid=findMid(head);
+
+  Node prev=null;
+  Node curr=mid;
+  Node next;
+  while(curr!=null){
+    next=curr.next;
+    curr.next=prev;
+    prev=curr;
+    curr=next;
+
+  }
+  Node right=prev;
+  Node left=head;
+  while(right!=null){
+    if(right.data!=left.data){
+      return false;
+    }
+    right=right.next;
+    left=left.next;
+  }
+  return true;
+}
   public static void main(String[] args) {
     ApnaCollege ll=new ApnaCollege();
-    ll.addFirst(10);
-    ll.addFirst(20);
-    ll.addLast(3);
-    ll.addLast(5);
+    // ll.addFirst(10);
+    // ll.addFirst(20);
+    // ll.addLast(3);
+    // ll.addLast(5);
+    // // ll.printLL();
+    // ll.addFirst(90);
+    // ll.addMiddle(85, 4);
     // ll.printLL();
-    ll.addFirst(90);
-    ll.addMiddle(85, 4);
-    ll.printLL();
-    ll.removeFirst();
-    ll.printLL();
-    ll.removeLast();
-    ll.printLL();
+    // ll.removeFirst();
+    // ll.printLL();
+    // ll.removeLast();
+    // ll.printLL();
 
-    System.out.println("The index is :-  "+ll.LinerSearch(3));
-    System.out.println("The index is :-  "+ll.recSearch(10));
-    ll.reverse();
-    ll.printLL();
-    ll.removeFromEnd(2);
-    ll.printLL();
+    // System.out.println("The index is :-  "+ll.LinerSearch(3));
+    // System.out.println("The index is :-  "+ll.recSearch(10));
+    // ll.reverse();
+    // ll.printLL();
+    // ll.removeFromEnd(2);
+    // ll.printLL();
     // System.out.println(size);
+    ll.addFirst(1);
+    ll.addFirst(2);
+    ll.addFirst(1);
+    ll.printLL();
+    System.out.println(ll.palindrome());
   }
 }
