@@ -74,7 +74,7 @@ public int removeLast(){
   size--;
   return val;
 }
-public void printLL(){
+public static void printLL(){
   Node temp=head;
   while(temp!=null){
     System.out.print(temp.data+" ");
@@ -181,6 +181,58 @@ public boolean palindrome(){
   }
   return true;
 }
+public static boolean CheckCyele(){
+  Node slow=head;
+  Node fast=head;
+  while(fast!=null&& fast.next!=null){
+    slow=slow.next;
+    fast=fast.next.next;
+    if(fast==slow){
+      return true;
+    } 
+  }
+  return false;
+}
+public static void removeCycle() {
+    Node slow = head;
+    Node fast = head;
+    boolean cycle = false;
+
+    // Detect Cycle
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+
+        if (slow == fast) {
+            cycle = true;
+            break;
+        }
+    }
+
+    // No cycle
+    if (!cycle) {
+        return;
+    }
+
+    // Find cycle start
+    slow = head;
+    Node prev = fast;
+
+    // Special case: cycle starts from head
+    while (slow != fast) {
+        prev = fast;
+        slow = slow.next;
+        fast = fast.next;
+    }
+
+    // Move prev to last node of cycle
+    while (prev.next != slow) {
+        prev = prev.next;
+    }
+
+    // Remove cycle
+    prev.next = null;
+}
   public static void main(String[] args) {
     ApnaCollege ll=new ApnaCollege();
     // ll.addFirst(10);
@@ -203,10 +255,18 @@ public boolean palindrome(){
     // ll.removeFromEnd(2);
     // ll.printLL();
     // System.out.println(size);
-    ll.addFirst(1);
-    ll.addFirst(2);
-    ll.addFirst(1);
-    ll.printLL();
-    System.out.println(ll.palindrome());
+    // ll.addFirst(1);
+    // ll.addFirst(2);
+    // ll.addFirst(1);
+    // ll.printLL();
+    // System.out.println(ll.palindrome());
+    // System.out.println(ll.CheckCyele());
+    head=new Node(1);
+    head.next=new Node(2);
+    head.next.next=new Node(3);
+    head.next.next.next=head;
+   System.out.println(CheckCyele());
+    removeCycle();
+    printLL();
   }
 }
