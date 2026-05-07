@@ -233,6 +233,58 @@ public static void removeCycle() {
     // Remove cycle
     prev.next = null;
 }
+public Node getMid(Node head){
+  Node slow =head;
+  Node fast=head.next;
+  while(fast!=null && fast.next!=null){
+    slow=slow.next;
+    fast=fast.next.next;
+  }
+  return slow;
+}
+public Node merge(Node newLeft, Node newRight){
+  Node mergedLL=new Node(-1);
+  Node temp=mergedLL;
+  while(newLeft!=null&& newRight!=null){
+    if(newLeft.data<=newRight.data){
+      temp.next=newLeft;
+      newLeft=newLeft.next;
+      temp=temp.next;
+
+    }else{
+      temp.next=newRight;
+      newRight=newRight.next;
+      temp=temp.next;
+    }
+  }
+  while(newLeft!=null){
+     temp.next=newLeft;
+      newLeft=newLeft.next;
+      temp=temp.next;
+  }
+  while(newRight!=null){
+       temp.next=newRight;
+      newRight=newRight.next;
+      temp=temp.next;
+  }
+  return mergedLL.next;
+}
+
+
+public Node mergedSort(Node head){
+  if(head==null||head.next==null){
+    return head;
+  }
+  Node mid=getMid(head);
+
+  Node rightHead=mid.next;
+  mid.next=null;
+  Node newRight=mergedSort(rightHead);
+  Node newLeft=mergedSort(head);
+
+  return merge(newLeft,newRight);
+
+}
   public static void main(String[] args) {
     ApnaCollege ll=new ApnaCollege();
     // ll.addFirst(10);
@@ -261,12 +313,21 @@ public static void removeCycle() {
     // ll.printLL();
     // System.out.println(ll.palindrome());
     // System.out.println(ll.CheckCyele());
-    head=new Node(1);
-    head.next=new Node(2);
-    head.next.next=new Node(3);
-    head.next.next.next=head;
-   System.out.println(CheckCyele());
-    removeCycle();
-    printLL();
+  //   head=new Node(1);
+  //   head.next=new Node(2);
+  //   head.next.next=new Node(3);
+  //   head.next.next.next=head;
+  //  System.out.println(CheckCyele());
+  //   removeCycle();
+  ll.addFirst(1);
+  ll.addFirst(5);
+  ll.addFirst(4);
+  ll.addFirst(2);
+  // ll.addFirst(3);
+  printLL();
+  ll.head=ll.mergedSort(ll.head);
+  // ll.mergedSort(ll.head);
+  printLL();
+
   }
 }
