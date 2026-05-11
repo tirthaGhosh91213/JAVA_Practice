@@ -285,6 +285,42 @@ public Node mergedSort(Node head){
   return merge(newLeft,newRight);
 
 }
+public void ZigZag(){
+  Node slow=head;
+  Node fast=head.next;
+  while(fast!=null && fast.next!=null){
+    slow=slow.next;
+    fast=fast.next.next;
+
+  }
+  Node mid =slow;
+
+  Node curr=mid.next;
+  mid.next=null;
+  Node prev=null;
+  Node next;
+  while(curr!=null){
+    next=curr.next;
+    curr.next=prev;
+    prev=curr;
+    curr=next;
+  }
+  Node rHead=head;
+  Node lHead=prev;
+  Node nextL,nextR;
+ while(rHead != null && lHead != null){
+
+    nextR = rHead.next;
+    nextL = lHead.next;
+
+    rHead.next = lHead;
+    lHead.next = nextR;
+
+    rHead = nextR;
+    lHead = nextL;
+}
+
+}
   public static void main(String[] args) {
     ApnaCollege ll=new ApnaCollege();
     // ll.addFirst(10);
@@ -319,14 +355,18 @@ public Node mergedSort(Node head){
   //   head.next.next.next=head;
   //  System.out.println(CheckCyele());
   //   removeCycle();
-  ll.addFirst(1);
   ll.addFirst(5);
   ll.addFirst(4);
+  ll.addFirst(3);
   ll.addFirst(2);
+  ll.addFirst(1);
   // ll.addFirst(3);
   printLL();
-  ll.head=ll.mergedSort(ll.head);
+
+  // ll.head=ll.mergedSort(ll.head);
   // ll.mergedSort(ll.head);
+  // printLL();
+  ll.ZigZag();
   printLL();
 
   }
