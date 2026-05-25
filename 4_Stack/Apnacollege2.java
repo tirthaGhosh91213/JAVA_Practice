@@ -24,17 +24,34 @@ public class Apnacollege2 {
     System.out.println();
     System.out.println(result.toString());
   }
+  public static void reverseStack(Stack<Integer> s){
+    if(s.isEmpty()){
+      return ;
+    }
+    int top=s.pop();
+    reverseStack(s);
+    addBottom(s,top);
+
+  }
+  public static void printStack(Stack<Integer> s){
+    while(!s.isEmpty()){
+      System.out.print(s.pop()+" ");
+    }
+  }
   public static void main(String[] args) {
       Stack<Integer> s=new Stack<>();
       s.push(1);
       s.push(2);
       s.push(3);
-      addBottom(s,4);
-      while(!s.isEmpty()){
-        System.out.print(s.pop()+" ");
+      // addBottom(s,4);
+      // while(!s.isEmpty()){
+      //   System.out.print(s.pop()+" ");
         
-      }
+      // }
     
-      reverseString("Tirtha");
+      // reverseString("Tirtha");
+      reverseStack(s);
+      printStack(s);
+
   }
 }
