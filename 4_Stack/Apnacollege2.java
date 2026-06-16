@@ -76,6 +76,30 @@ s.push(i);
 // next smaller right 
 // next smaller left 
 }
+public static boolean isValid(String str){
+  Stack<Character> s=new Stack<>();
+  for(int i=0;i<str.length();i++){
+    char ch=str.charAt(i);
+    if(ch=='(' || ch=='{' || ch=='['){
+      s.push(ch);
+    }
+    else{
+      if(s.isEmpty()){
+        return false;
+      }
+    
+      if ((s.peek()=='(' && ch==')') || (s.peek()=='{' && ch=='}')|| (s.peek()=='[' && ch==']')){
+        s.pop();
+      }
+      else{
+        return false;
+      }
+    }
+  }
+  if(s.isEmpty()) return true;
+  else return false;
+
+}
   public static void main(String[] args) {
       Stack<Integer> s=new Stack<>();
       s.push(1);
@@ -100,14 +124,17 @@ s.push(i);
       }
      */
 
-      
+    /* 
     int arr[]={6,8,0,1,3};
     int nextGreater[]=new int[arr.length];
     nextGreater(arr,nextGreater);
     for(int i=0;i<nextGreater.length;i++){
       System.out.print(nextGreater[i]+" ");
     }
+ */ 
+String str="({})[]";
 
+System.out.println(isValid(str));
 
   }
 }
