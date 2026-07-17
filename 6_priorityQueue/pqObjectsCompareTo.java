@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 
 
 public class pqObjectsCompareTo {
-  static class Student Comparable<Student>{
+  static class Student implements Comparable<Student>{
     String name;
     int rank;
     public Student(String name,int rank){
@@ -19,13 +19,13 @@ public class pqObjectsCompareTo {
 
   }
    public static void main(String[] args) {
-    PriorityQueue<String > pq=new PriorityQueue<>(Comparator.reverseOrder());
-    pq.add();
-    pq.add();
-    pq.add();
-    pq.add();
+    PriorityQueue<Student > pq=new PriorityQueue<>(Comparator.reverseOrder());
+  pq.add(new Student("A",4));
+pq.add(new Student("B",1));
+pq.add(new Student("C",3));
+pq.add(new Student("D",2));
     while(!pq.isEmpty()){
-      System.out.print(pq.peek()+" ");
+      System.out.print(pq.peek().name+"--> "+pq.peek().rank+"   ");
       pq.remove();
     }
   }
