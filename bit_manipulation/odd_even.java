@@ -34,12 +34,19 @@ public class odd_even {
     int bitMask=(~0)<<i;
     return n & bitMask;
   }
+  public static int clearRangeBit(int n,int i,int j){
+    int a=(~0)<<(j+1);
+    int b=(1<<i)-1;
+    int temp=a|b;
+    return n&temp;
+  }
   public static void main(String[] args) {
     // odd_Even(3);
     // System.out.println("The i th Bit = "+getithBit(10, 3));
     // System.out.println(setithBit(10, 2));
     // System.out.println(clearithBit(10, 1));
     // System.out.println(updateithBit(10, 2, 1));
-    System.out.println(clearIbit(10, 2));
+    // System.out.println(clearIbit(10, 2));
+    System.out.println(clearRangeBit(15, 2, 5));
   }
 }
