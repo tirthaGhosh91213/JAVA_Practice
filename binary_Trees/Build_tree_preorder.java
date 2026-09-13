@@ -99,13 +99,51 @@ public static int diameter(Node root){
   int selftDia=lh+rh+1;
   return Math.max(selftDia, Math.max(ldiam,rdiam));
 }
-
+static class Info{
+  int diam;
+  int ht;
+  public Info(int diam,int ht){
+    this.diam=diam;
+    this.ht=ht;
+  }
+}
+public static Info diameter2(Node root){
+  if(root==null) return new Info(0, 0);
+  Info leftInfo=diameter2(root.left);
+  Info rightInfo=diameter2(root.right);
+  int diam=Math.max(leftInfo.ht+rightInfo.ht+1, Math.max(leftInfo.diam, leftInfo.diam));
+  int ht=Math.max(leftInfo.ht, rightInfo.ht)+1;
+  return new Info(diam, ht);
+}
+public static boolean isIdentical(Node root,Node subRoot){
+  if(root==null && subRoot==null) return true;
+  else if (root==null || subRoot==null || root.data!=subRoot.data) return false;
+  if (!isIdentical(root.left, subRoot.left) ) return false ;
+  if(!isIdentical(root.right, subRoot.right) ) return false;
+  return true;
+}
+public static boolean isSubtree(Node root,Node subRoot){
+  if(root==null) return false;
+  if(root.data==subRoot.data){
+    if(isIdentical(root,subRoot)){
+      return true;
+    }
+  }
+    return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+  
+}
  }
   public static void main(String[] args) {
       int nodes[]={1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
+
+      Node subroot=new Node(2);
+      subroot.left=new Node(4);
+      subroot.right=new Node(5);
+
       BinaryTree tree=new BinaryTree();
       Node root=tree.buildtree(nodes);
-    System.out.println(tree.diameter(root));
+    // System.out.println(tree.diameter2(root).diam);
+    System.out.println(tree.isSubtree(root, subroot) );
 
   }
 }
