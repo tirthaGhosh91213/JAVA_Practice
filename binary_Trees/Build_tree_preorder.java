@@ -1,4 +1,5 @@
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -132,6 +133,55 @@ public static boolean isSubtree(Node root,Node subRoot){
     return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
   
 }
+    static class Info1 {
+        Node node;
+        int hd;
+
+        Info1(Node node, int hd) {
+            this.node = node;
+            this.hd = hd;
+        }
+    }
+public static void topView(Node root){
+   Queue<Info1> q = new LinkedList<>();
+
+        // root er horizontal distance = 0
+        q.add(new Info1(root, 0));
+
+        // HD -> Node
+        HashMap<Integer, Node> map = new HashMap<>();
+
+        int min = 0;
+        int max = 0;
+
+        while (!q.isEmpty()) {
+
+            Info1 curr = q.remove();
+
+            Node node = curr.node;
+            int hd = curr.hd;
+
+            // Ei HD age visit na hole first node ta store korbo
+            if (!map.containsKey(hd)) {
+                map.put(hd, node);
+            }
+
+            if (node.left != null) {
+                q.add(new Info1(node.left, hd - 1));
+                min = Math.min(min, hd - 1);
+            }
+
+            if (node.right != null) {
+                q.add(new Info1(node.right, hd + 1));
+                max = Math.max(max, hd + 1);
+            }
+        }
+
+        // Left -> Right order
+        for (int i = min; i <= max; i++) {
+            System.out.print(map.get(i).data + " ");
+        }
+}
  }
   public static void main(String[] args) {
       int nodes[]={1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
@@ -143,7 +193,8 @@ public static boolean isSubtree(Node root,Node subRoot){
       BinaryTree tree=new BinaryTree();
       Node root=tree.buildtree(nodes);
     // System.out.println(tree.diameter2(root).diam);
-    System.out.println(tree.isSubtree(root, subroot) );
+    // System.out.println(tree.isSubtree(root, subroot) );
+    tree.topView(root);
 
   }
 }
