@@ -182,6 +182,47 @@ public static void topView(Node root){
             System.out.print(map.get(i).data + " ");
         }
 }
+
+public static void kLevel(Node root , int level, int k){
+  if(root==null) return ;
+  if(level==k) {
+    System.out.print(root.data+" ");
+    return ;
+  }
+kLevel(root.left, level+1, k);
+kLevel(root.right, level+1, k);
+}
+public static int KthAncester(Node root, int k,int n){
+  if(root==null) return -1;
+  if(root.data==n) return 0;
+  int leftDist=KthAncester(root.left, k, n);
+  int rightDist=KthAncester(root.right, k, n);
+  if(leftDist==-1 && rightDist==-1){
+    return -1;
+  }
+  int dist;
+   if(leftDist==-1){
+   dist=rightDist;
+  }
+  else {
+   dist=leftDist;
+  }
+ if(dist+1==k){
+  System.out.println(root.data);
+ }
+ return dist+1;
+}
+
+public static int transformSum(Node root){
+  if(root==null) return 0;
+  int leftchild=transformSum(root.left);
+  int rightChild=transformSum(root.right);
+  int data=root.data;
+  int newleft=root.left==null?0:root.left.data;
+  int newRight=root.right==null?0:root.right.data;
+  root.data=leftchild+newleft+rightChild+newRight;
+  return data;
+}
  }
   public static void main(String[] args) {
       int nodes[]={1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
@@ -192,9 +233,13 @@ public static void topView(Node root){
 
       BinaryTree tree=new BinaryTree();
       Node root=tree.buildtree(nodes);
+      // tree.kLevel(root, 1, 3);
+      // tree.KthAncester(root, 1, 4);
+     tree.transformSum(root);
+     tree.preorder(root);
     // System.out.println(tree.diameter2(root).diam);
     // System.out.println(tree.isSubtree(root, subroot) );
-    tree.topView(root);
+    // tree.topView(root);
 
   }
 }
