@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Basics {
   public static  class Node{
     int data;
@@ -60,6 +63,32 @@ public class Basics {
     }
     return root;
   }
+  public static void printinRange(Node root, int k1,int k2){
+    if(root==null) return ;
+    if(root.data>=k1 && root.data<=k2){
+      printinRange(root.left,k1,k2);
+      System.out.print(root.data+" ");
+      printinRange(root.right, k1, k2);
+    }
+    else if(root.data>k1){
+      printinRange(root.left, k1, k2);
+    }else printinRange(root.right, k1, k2);
+  }
+  
+  public static void printRoot_Leaf(Node root,List<Integer> list){
+   
+   if(root==null) return ;
+    list.add(root.data);
+     if(root.left==null && root.right==null){
+      for(int i=0;i<list.size();i++){
+        System.out.print(list.get(i)+"-> ");
+      }
+      System.out.println("null");
+    }
+    printRoot_Leaf(root.left,list);
+    printRoot_Leaf(root.right,list);
+    list.remove(list.size()-1);
+  }
   public static void main(String[] args) {
     int[] values={5,1,3,4,2,7};
     Node root=null;
@@ -68,7 +97,10 @@ public class Basics {
     }
     // inorder(root);
     // System.out.println(search(root, 10));
-    root=delete(root, 1);
-    inorder(root);
+    // root=delete(root, 1);
+    // inorder(root);
+    // printinRange(root, 2, 7);
+     List<Integer> list=new ArrayList<>();
+    printRoot_Leaf(root,list);
   }
 }
