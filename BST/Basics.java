@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class Basics {
@@ -74,7 +73,7 @@ public class Basics {
       printinRange(root.left, k1, k2);
     }else printinRange(root.right, k1, k2);
   }
-  
+
   public static void printRoot_Leaf(Node root,List<Integer> list){
    
    if(root==null) return ;
@@ -89,6 +88,20 @@ public class Basics {
     printRoot_Leaf(root.right,list);
     list.remove(list.size()-1);
   }
+  public static Node mirror(Node root){
+    if(root==null) return null;
+    Node leftMirror=mirror(root.left);
+    Node rightMirror=mirror(root.right);
+    root.left=rightMirror;
+    root.right=leftMirror;
+    return root;
+  }
+  public static void preorder(Node root){
+    if(root==null) return;
+    System.out.print(root.data+" ");
+    preorder(root.left);
+    preorder(root.right);
+  }
   public static void main(String[] args) {
     int[] values={5,1,3,4,2,7};
     Node root=null;
@@ -100,7 +113,9 @@ public class Basics {
     // root=delete(root, 1);
     // inorder(root);
     // printinRange(root, 2, 7);
-     List<Integer> list=new ArrayList<>();
-    printRoot_Leaf(root,list);
+    //  List<Integer> list=new ArrayList<>();
+    // printRoot_Leaf(root,list);
+    root=mirror(root);
+    preorder(root);
   }
 }
