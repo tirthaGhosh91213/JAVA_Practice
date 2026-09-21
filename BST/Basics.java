@@ -110,6 +110,54 @@ public class Basics {
     root.right=createBST(arr, mid+1, end);
     return root;
   }
+ static class Info {
+        int size;
+        int min;
+        int max;
+        boolean isBST;
+
+       public  Info(int size, int min, int max, boolean isBST) {
+            this.size = size;
+            this.min = min;
+            this.max = max;
+            this.isBST = isBST;
+        }
+    }
+
+   static  int ans = 0;
+
+    public static int largestBst(Node root) {
+        solve(root);
+        return ans;
+    }
+
+    public static  Info solve(Node root) {
+
+        if (root == null) {
+            return new Info(0, Integer.MAX_VALUE, Integer.MIN_VALUE, true);
+        }
+
+        Info left = solve(root.left);
+        Info right = solve(root.right);
+
+        // Check whether current subtree is BST
+        if (left.isBST && right.isBST &&
+            root.data > left.max &&
+            root.data < right.min) {
+
+            int size = left.size + right.size + 1;
+
+            ans = Math.max(ans, size);
+
+            int min = Math.min(root.data, left.min);
+            int max = Math.max(root.data, right.max);
+
+            return new Info(size, min, max, true);
+        }
+
+        // Not a BST
+        return new Info(0, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+    }
   public static void main(String[] args) {
     int[] values={5,1,3,4,2,7};
     Node root=null;
@@ -125,8 +173,11 @@ public class Basics {
     // printRoot_Leaf(root,list);
     // root=mirror(root);
     // preorder(root);
-    int[] arr={3,5,6,8,10,11,12};
-    root=createBST(arr, 0, arr.length-1);
-    preorder(root);
+    // int[] arr={3,5,6,8,10,11,12};
+    // root=createBST(arr, 0, arr.length-1);
+    // preorder(root);
+    int a= largestBst(root);
+    System.out.println("The largest size is :- "+a);
+
   }
 }
