@@ -102,6 +102,14 @@ public class Basics {
     preorder(root.left);
     preorder(root.right);
   }
+  public static Node createBST(int arr[],int start,int end){
+    if(start>end) return null;
+    int mid=(start+end)/2;
+    Node root=new Node(arr[mid]);
+    root.left=createBST(arr, start, mid-1);
+    root.right=createBST(arr, mid+1, end);
+    return root;
+  }
   public static void main(String[] args) {
     int[] values={5,1,3,4,2,7};
     Node root=null;
@@ -115,7 +123,10 @@ public class Basics {
     // printinRange(root, 2, 7);
     //  List<Integer> list=new ArrayList<>();
     // printRoot_Leaf(root,list);
-    root=mirror(root);
+    // root=mirror(root);
+    // preorder(root);
+    int[] arr={3,5,6,8,10,11,12};
+    root=createBST(arr, 0, arr.length-1);
     preorder(root);
   }
 }
