@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Basics {
@@ -158,6 +159,52 @@ public class Basics {
         // Not a BST
         return new Info(0, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
     }
+
+    public static void getInorder(Node root , ArrayList<Integer> arr){
+      if(root==null){
+        return;
+      }
+      getInorder(root.left, arr);
+      arr.add(root.data);
+      getInorder(root.right, arr);
+    }
+    public static Node createBST2(ArrayList<Integer> arr,int st,int end){
+      if(st>end) return null;
+      int mid=(st+end)/2;
+      Node root=new Node(arr.get(mid));
+      root.left=createBST2(arr, st, mid-1);
+      root.right=createBST2(arr, mid+1, end);
+      return root;
+
+    }
+    public static Node mergeBSTs(Node root1,  Node root2){
+      ArrayList<Integer> list1=new ArrayList<>();
+      getInorder(root1,list1);
+
+       ArrayList<Integer> list2=new ArrayList<>();
+      getInorder(root2,list2);
+      int i=0,j=0;
+      ArrayList<Integer> finalArr=new ArrayList<>();
+      while(i<list1.size() && j<list2.size()){
+        if(list1.get(i)<=list2.get(j)){
+          finalArr.add(list1.get(i));
+          i++;
+        }else {
+          finalArr.add(list2.get(j));
+          j++;
+        }
+      }
+      while(i<list1.size()){
+         finalArr.add(list1.get(i));
+          i++;
+      }
+      while(j<list2.size()){
+         finalArr.add(list2.get(j));
+          j++;
+      }
+return createBST2(finalArr, 0, finalArr.size()-1);
+    }
+
   public static void main(String[] args) {
     int[] values={5,1,3,4,2,7};
     Node root=null;
@@ -176,8 +223,17 @@ public class Basics {
     // int[] arr={3,5,6,8,10,11,12};
     // root=createBST(arr, 0, arr.length-1);
     // preorder(root);
-    int a= largestBst(root);
-    System.out.println("The largest size is :- "+a);
+    // int a= largestBst(root);
+    // System.out.println("The largest size is :- "+a);
+    Node root1=new Node(2);
+    root1.left=new Node(1);
+    root1.right=new Node(4);
+
+    Node root2=new Node(9);
+    root2.left=new Node(3);
+    root2.right=new Node(12);
+Node root3=mergeBSTs(root1, root2);
+preorder(root3);
 
   }
 }
