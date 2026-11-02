@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 public class basicOperation {
   static class Heap{
@@ -49,25 +50,58 @@ public int remove(){
 public boolean isEmpty(){
   return list.size()==0;
 }
+public void heapify2(int i,int size,int arr[]){
+  int left=i*2+1;
+  int right=i*2+2;
+  int minidx=i;
+  if(size>left && arr[minidx]<arr[left]){
+    minidx=left;
+  }
+  if(size>right && arr[minidx]<arr[right]){
+    minidx=right;
+  }
+  if(minidx!=i){
+    int temp=arr[i];
+    arr[i]=arr[minidx];
+    arr[minidx]=temp;
+    heapify2(minidx, size, arr);
+  }
+}
+public void sortHeap(int arr[]){
+  int n=arr.length;
+  for(int i=n/2;i>=0;i--){
+    heapify2(i,n,arr);
+  }
+  for(int i=n-1;i>0;i--){
+    int temp=arr[0];
+    arr[0]=arr[i];
+    arr[i]=temp;
+    heapify2(0,i,arr);
+  }
+}
 
 }
   public static void main(String[] args) {
+    int arr[]={1,2,4,5,3};
     
-        Heap h = new Heap();
+    Heap h = new Heap();
 
     h.Add(10);
     h.Add(20);
     h.Add(5);
     h.Add(30);
     h.Add(2);
+  h.sortHeap(arr);
 
-    System.out.println("Heap: " + h.list);
-    System.out.println("Minimum Element: " + h.peek());
+System.out.println("Sorted Array: " + Arrays.toString(arr));
 
-    while (!h.isEmpty()) {
-        System.out.println("Removed: " + h.remove());
-    }
+    // System.out.println("Heap: " + h.list);
+    // System.out.println("Minimum Element: " + h.peek());
 
-    System.out.println("Heap Empty: " + h.isEmpty());
+    // while (!h.isEmpty()) {
+    //     System.out.println("Removed: " + h.remove());
+    // }
+
+    // System.out.println("Heap Empty: " + h.isEmpty());
   }
 }
